@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\UpdateTagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -16,23 +18,29 @@ class TagController extends Controller
         return view('tags.create');
     }
 
-    public function store(Request $request) {
-        
+    public function store(StoreTagRequest $request) {
+        Tag::create($request->validated());
+
+        return redirect()->route('tags.index')->with('success', 'Tag successfully inserted.');
     }
 
     public function show($id) {
         
     }
 
-    public function edit($id) {
+    public function edit(Tag $tag) {
+        return view('tags.edit', compact('tag'));
+    }
+
+    public function update(UpdateTagRequest $request, Tag $tag) {
+        $tag->update($request->validated());
+
+        return redirect()->route('tags.index')->with('success', 'Tag updated sucessfully.');
+    }
+
+    public function destroy(Tag $tag) {
+        $tag->delete();
         
-    }
-
-    public function update(Request $request, $id) {
-        //
-    }
-
-    public function destroy($id) {
-        //
+        return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }
 }

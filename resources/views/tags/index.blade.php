@@ -37,17 +37,13 @@
                                     </th>
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-
-                                    </th>
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-
+                                        {{ $tag->title }}
                                     </th>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex space-x-2">
-                                            <a href=""
+                                            <a href="{{ route('tags.edit', $tag->id) }}"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                            <form method="POST" action=""
+                                            <form method="POST" action="{{ route('tags.destroy', $tag->id) }}"
                                                 onsubmit="return confirm('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
